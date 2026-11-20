@@ -1,0 +1,32 @@
+[package]
+name = "emvco-qr"
+version = "0.2.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "EMVCo MPM/CPM QR payload tooling with configurable payment profiles"
+
+[lib]
+name = "emvco_qr"
+path = "src/lib.rs"
+
+[features]
+default = []
+# QR image rendering. Payload building and parsing need none of it.
+image = ["dep:fast_qr", "dep:resvg"]
+
+[dependencies]
+thiserror = "2"
+base64 = "0.22"
+fast_qr = { version = "0.14", features = ["image"], optional = true }
+resvg = { version = "0.45", optional = true }
+
+[dev-dependencies]
+pretty_assertions = "1"
+
+[[example]]
+name = "generate_sample"
+required-features = ["image"]
+
+[[test]]
+name = "qr"
+required-features = ["image"]
